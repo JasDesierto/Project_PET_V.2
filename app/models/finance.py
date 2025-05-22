@@ -1,13 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from app import db  # you imported this db from init
 
 
 class Finance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(20), nullable=False)
     expense = db.Column(db.Float, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
 
-
-# need ibutang sa folder (model)
-# instead na model, dapat name sa class
+    category = db.relationship("Category", backref="finances")

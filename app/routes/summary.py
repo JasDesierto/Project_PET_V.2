@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
-from app.models import db, Finance
+from app.models.finance import db, Finance
 
 summary_bp = Blueprint("summary", __name__, url_prefix="/summary")
 

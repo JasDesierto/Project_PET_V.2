@@ -17,6 +17,17 @@
     <option value="December">December</option>
   </select>
 
+  <label for="category">Select Category:</label>
+  <select id="category" name="category" required>
+    <option value="" disabled selected>Select a Category</option>
+    <option value="Essentials">Essentials</option>
+    <option value="Food_and_Dining">Food and Dining</option>
+    <option value="Health_and_Medicine">Health and Medicine</option>
+    <option value="Loans_and_Bills">Loans and Bills</option>
+    <option value="Transportation">Transportation</option>
+    <option value="Savings_and_Misc">Savings and Miscellaneous</option>
+  </select>
+
   <br /><br />
 
   <label for="expense">Expense Amount:</label>
@@ -43,6 +54,7 @@
 
       const date = document.getElementById("date").value;
       const expense = parseFloat(document.getElementById("expense").value);
+      const category = document.getElementById("category").value;
 
       const response = await fetch("/transactions/", {
         method: "POST",
