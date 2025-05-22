@@ -1,0 +1,58 @@
+<!-- templates/transactions.html -->
+<form id="expense-form">
+  <label for="month">Select Month:</label>
+  <select id="month" name="month" required>
+    <option value="" disabled selected>Select a month</option>
+    <option value="January">January</option>
+    <option value="February">February</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+  </select>
+
+  <br /><br />
+
+  <label for="expense">Expense Amount:</label>
+  <input
+    type="number"
+    id="expense"
+    name="expense"
+    required
+    step="0.01"
+    min="0"
+  />
+
+  <br /><br />
+
+  <button type="submit">Submit</button>
+</form>
+
+<!-- Add JS to handle form submission, create folder named SCRIPT -->
+<script>
+  document
+    .getElementById("expense-form")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const date = document.getElementById("date").value;
+      const expense = parseFloat(document.getElementById("expense").value);
+
+      const response = await fetch("/transactions/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ date, expense }),
+      });
+
+      const result = await response.json();
+      alert(result.message || result.error);
+    });
+</script>
