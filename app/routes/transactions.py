@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
-from app.models.finance import db, Finance  # importing database and model
+from app import db
+from app.models.finance import Finance
 
 transactions_bp = Blueprint("transactions", __name__, url_prefix="/transactions")
 
@@ -9,18 +10,23 @@ def get_expense():
     data = request.json
     date = data.get("date")
     expense_amount = data.get("expense")
+    category = data.get("category")
 
     try:
         amount = float(expense_amount)
     except (ValueError, TypeError):
-        return jsonify({"error: Invalid expense input"}), 400
+        return jsonify({"error": "Invalid expense input"}), 400
 
     if not date:
-        return jsonify({"error": "Month is Required"}), 400
+        return jsonify({"error": "Date is required"}), 400
+    if not category:
+        return jsonify({"error": "Category is required"}), 400
 
-    new_entry = Finance(date=date, expense=amount)
+    new_entry = Finance(date=date, expense=amount, category=category)
     db.session.add(new_entry)
     db.session.commit()
+
+    return jsonify({"message": "Transaction recorded successfully."}), 201
 
 
 @transactions_bp.route("/")

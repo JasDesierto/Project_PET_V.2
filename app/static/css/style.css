@@ -1,7 +1,51 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+  font-family: Arial, sans-serif;
+  margin: 20px;
 }
 nav a {
-    margin-right: 10px;
+  margin-right: 10px;
+}
+
+//* Summary View Styles */
+.category-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.category-button {
+  padding: 12px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+/* Category Detail View Styles */
+.back-button {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.transactions-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.transactions-list th,
+.transactions-list td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.transactions-list th {
+  background-color: #f8f9fa;
 }

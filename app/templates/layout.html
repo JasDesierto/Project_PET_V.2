@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}My App{% endblock %}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+      }
+      .navbar {
+        display: flex;
+        justify-content: center;
+        background-color: #333;
+        padding: 15px;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+      .navbar a:hover {
+        background-color: #555;
+      }
+      .container {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a
+        href="{{ url_for('transactions.transactions') }}"
+        onclick="openPopupWindow(this.href,60,60); return false;"
+        >Transactions</a
+      >
+      <a
+        href="{{ url_for('summary.show_summary') }}"
+        onclick="openPopupWindow(this.href,90,80); return false;"
+        >Summary</a
+      >
+      <a
+        href="{{ url_for('user.user') }}"
+        onclick="openPopupWindow(this.href,70,70); return false;"
+        >User</a
+      >
+    </div>
+
+    <div class="container">{% block content %}{% endblock %}</div>
+
+    <script>
+      function openPopupWindow(url, widthPercent = 80, heightPercent = 60) {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+
+        const popupWidth = Math.floor((screenWidth * widthPercent) / 100);
+        const popupHeight = Math.floor((screenHeight * heightPercent) / 100);
+        const left = Math.floor((screenWidth - popupWidth) / 2);
+        const top = Math.floor((screenHeight - popupHeight) / 2);
+
+        window.open(
+          url,
+          "popupWindow_" + Date.now(),
+          `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`
+        );
+      }
+    </script>
+  </body>
+</html>
