@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
 import os
-from flask_sqlalchemy import SQLAlchemy
 import config
-
-db = SQLAlchemy()
+from app.routes import *  # this will import all the routes
+from .db import db
 
 
 def create_db(app):
@@ -27,14 +26,7 @@ def create_app():
 
     CORS(app)
 
-    from app.routes.home import home_bp
-    from app.routes.transactions import transactions_bp
-    from app.routes.summary import summary_bp
-    from app.routes.user import user_bp
-
-    app.register_blueprint(home_bp)
-    app.register_blueprint(transactions_bp)
-    app.register_blueprint(summary_bp)
-    app.register_blueprint(user_bp)
+    for bp in [home_bp, transactions_bp, summary_bp, user_bp]:
+        app.register_blueprint(bp)  # Register the blueprint
 
     return app
